@@ -14,6 +14,13 @@ Docker orchestration for Data Repositories portals
 
     $ git clone https://github.com/olimpiurob/eea.docker.reportek.git
     $ cd eea.docker.reportek
+
+
+We need to create the apache-staging.env and cron-staging.env files based on the
+sample files provided in the envs directory filling the placeholders with the 
+required info.
+
+
     $ docker-compose -f docker-compose-staging.yml up -d
     $ docker-compose -f docker-compose-staging.yml logs
 
