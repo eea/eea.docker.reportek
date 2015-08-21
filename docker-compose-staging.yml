@@ -40,7 +40,7 @@ pound:
   - instance1
   - instance2
   env_file:
-    envs/pound.env
+  - envs/pound.env
 
 zeoserver:
   image: eeacms/zeoserver
