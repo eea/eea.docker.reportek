@@ -63,6 +63,6 @@ cron:
   image: olimpiurob/eea.docker.reportek.cron
   restart: always
   env_file:
-    envs/cron-staging.env
+  - envs/cron-staging.env
   links:
   - apache:cdrtest.eionet.europa.eu
