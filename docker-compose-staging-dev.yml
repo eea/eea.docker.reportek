@@ -1,0 +1,68 @@
+apache:
+  image: olimpiurob/eea.docker.reportek.apache
+  restart: always
+  ports:
+  - "80:80"
+  - "443:443"
+  links:
+    - pound:pound
+  env_file:
+  - envs/apache-staging-dev.env
+
+instance1:
+  image: olimpiurob/eea.docker.reportek.zope-instance
+  restart: always
+  links:
+  - zeoserver
+  - localconv:converter
+  ports:
+  - "8081:80"
+  env_file:
+  - envs/zope-staging.env
+
+instance2:
+  image: olimpiurob/eea.docker.reportek.zope-instance
+  restart: always
+  links:
+  - zeoserver
+  - localconv:converter
+  ports:
+  - "8082:80"
+  env_file:
+  - envs/zope-staging.env
+
+pound:
+  image: olimpiurob/eea.docker.reportek.pound
+  restart: always
+  ports:
+  - "8083:80"
+  links:
+  - instance1
+  - instance2
+  env_file:
+    envs/pound.env
+
+zeoserver:
+  image: eeacms/zeoserver
+  restart: always
+  volumes_from:
+  - data
+
+data:
+  image: busybox
+  volumes:
+  - /opt/zeoserver/var/filestorage
+  - /opt/zeoserver/var/blobstorage
+  command: chown -R 500:500 /opt/zeoserver/var
+
+localconv:
+  image: olimpiurob/eea.docker.reportek.local-converters
+  restart: always
+
+cron:
+  image: olimpiurob/eea.docker.reportek.cron
+  restart: always
+  env_file:
+    envs/cron-staging-dev.env
+  links:
+  - apache:cdrtest.eionet.europa.eu
