@@ -15,6 +15,7 @@ instance1:
   links:
   - zeoserver
   - localconv:converter
+  - redis:redis_deploy
   ports:
   - "8081:80"
   env_file:
@@ -26,6 +27,7 @@ instance2:
   links:
   - zeoserver
   - localconv:converter
+  - redis:redis_deploy
   ports:
   - "8082:80"
   env_file:
@@ -66,3 +68,8 @@ cron:
   - envs/cron-staging.env
   links:
   - apache:cdrtest.eionet.europa.eu
+
+redis:
+  image: redis:3
+  restart: always
+
