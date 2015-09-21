@@ -10,28 +10,20 @@ apache:
   - envs/apache-staging.env
 
 instance1:
-  image: olimpiurob/eea.docker.reportek.zope-instance
+  image: olimpiurob/eea.docker.reportek.cdr-instance
   restart: always
   links:
   - zeoserver
   - localconv:converter
   - redis:redis_deploy
-  ports:
-  - "8081:80"
-  env_file:
-  - envs/zope-staging.env
 
 instance2:
-  image: olimpiurob/eea.docker.reportek.zope-instance
+  image: olimpiurob/eea.docker.reportek.cdr-instance
   restart: always
   links:
   - zeoserver
   - localconv:converter
   - redis:redis_deploy
-  ports:
-  - "8082:80"
-  env_file:
-  - envs/zope-staging.env
 
 pound:
   image: olimpiurob/eea.docker.reportek.pound
@@ -72,4 +64,3 @@ cron:
 redis:
   image: redis:3
   restart: always
-
