@@ -1,5 +1,5 @@
 apache:
-  image: olimpiurob/eea.docker.reportek.apache
+  image: eeacms/reportek-apache
   restart: always
   ports:
   - "80:80"
@@ -10,7 +10,7 @@ apache:
   - envs/apache-staging.env
 
 instance1:
-  image: olimpiurob/eea.docker.reportek.cdr-instance
+  image: eeacms/reportek-cdr
   restart: always
   links:
   - zeoserver
@@ -18,7 +18,7 @@ instance1:
   - redis:redis_deploy
 
 instance2:
-  image: olimpiurob/eea.docker.reportek.cdr-instance
+  image: eeacms/reportek-cdr
   restart: always
   links:
   - zeoserver
@@ -26,7 +26,7 @@ instance2:
   - redis:redis_deploy
 
 pound:
-  image: olimpiurob/eea.docker.reportek.pound
+  image: eeacms/reportek-pound
   restart: always
   ports:
   - "8083:80"
@@ -50,11 +50,11 @@ data:
   command: chown -R 500:500 /opt/zeoserver/var
 
 localconv:
-  image: olimpiurob/eea.docker.reportek.local-converters
+  image: eeacms/reportek-local-converters
   restart: always
 
 cron:
-  image: olimpiurob/eea.docker.reportek.cron
+  image: eeacms/reportek-cron
   restart: always
   env_file:
   - envs/cron-staging.env
