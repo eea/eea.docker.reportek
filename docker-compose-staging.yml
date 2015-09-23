@@ -5,7 +5,7 @@ apache:
   - "80:80"
   - "443:443"
   links:
-    - pound:pound
+  - pound:pound
   env_file:
   - envs/apache-staging.env
 
