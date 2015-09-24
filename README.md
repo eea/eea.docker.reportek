@@ -16,8 +16,8 @@ Docker orchestration for Data Repositories portals
     $ cd eea.docker.reportek
 
 
-We need to create the apache-staging.env and cron-staging.env files based on the
-sample files provided in the envs directory filling the placeholders with the 
+We need to create the apache-staging.env, cron-staging.env and pound.env files based
+on the sample files provided in the envs directory filling the placeholders with the
 required info.
 
 
