@@ -16,6 +16,9 @@ instance1:
   - zeoserver
   - localconv:converter
   - redis:redis_deploy
+  environment:
+  - ALWAYS_CHECKOUT=true
+  - SOURCE_Products_Reportek=git https://github.com/eea/Products.Reportek branch=development
 
 instance2:
   image: eeacms/reportek-cdr
@@ -24,6 +27,9 @@ instance2:
   - zeoserver
   - localconv:converter
   - redis:redis_deploy
+  environment:
+  - ALWAYS_CHECKOUT=true
+  - SOURCE_Products_Reportek=git https://github.com/eea/Products.Reportek branch=development
 
 pound:
   image: eeacms/reportek-pound
