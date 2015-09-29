@@ -1,0 +1,64 @@
+apache:
+  image: eeacms/reportek-apache
+  restart: always
+  ports:
+  - "80:80"
+  - "443:443"
+  links:
+  - pound:pound
+  env_file:
+  - envs/apache-dev.env
+
+instance1:
+  image: eeacms/reportek-cdr
+  restart: always
+  links:
+  - zeoserver
+  - localconv:converter
+  - redis:redis_deploy
+
+instance2:
+  image: eeacms/reportek-cdr
+  restart: always
+  links:
+  - zeoserver
+  - localconv:converter
+  - redis:redis_deploy
+
+pound:
+  image: eeacms/reportek-pound
+  restart: always
+  links:
+  - instance1
+  - instance2
+  env_file:
+  - envs/pound.env
+
+zeoserver:
+  image: eeacms/zeoserver
+  restart: always
+  volumes_from:
+  - data
+
+data:
+  image: busybox
+  volumes:
+  - /opt/zeoserver/var/filestorage
+  - /opt/zeoserver/var/blobstorage
+  command: chown -R 500:500 /opt/zeoserver/var
+
+localconv:
+  image: eeacms/reportek-local-converters
+  restart: always
+
+cron:
+  image: eeacms/reportek-cron
+  restart: always
+  env_file:
+  - envs/cron-dev.env
+  links:
+  - apache:cdrdev.eionet.europa.eu
+
+redis:
+  image: redis:3
+  restart: always
