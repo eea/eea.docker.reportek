@@ -28,8 +28,6 @@ instance2:
 pound:
   image: eeacms/reportek-pound
   restart: always
-  ports:
-  - "8083:80"
   links:
   - instance1
   - instance2
