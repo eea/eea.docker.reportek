@@ -28,7 +28,6 @@ required info.
 ### Upgrade CDR staging
 
     $ sudo docker-compose -f docker-compose-staging.yml stop
-    $ sudo docker-compose -f docker-compose-staging.yml rm -v
     $ sudo docker-compose -f docker-compose-staging.yml pull
     $ sudo docker-compose -f docker-compose-staging.yml up -d
     $ sudo docker-compose -f docker-compose-staging.yml logs
