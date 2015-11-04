@@ -62,8 +62,6 @@ cron:
   restart: always
   env_file:
   - envs/cron-dev.env
-  links:
-  - apache:cdrdev.eionet.europa.eu
 
 redis:
   image: redis:3

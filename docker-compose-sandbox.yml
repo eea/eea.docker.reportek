@@ -2,12 +2,12 @@ apache:
   image: eeacms/reportek-apache
   restart: always
   ports:
-  - "8112:80"
-  - "8113:443"
+  - "8114:80"
+  - "8115:443"
   links:
   - pound:pound
   env_file:
-  - envs/apache-staging.env
+  - envs/apache-sandbox.env
 
 instance1:
   image: eeacms/reportek-cdr
@@ -55,7 +55,7 @@ cron:
   image: eeacms/reportek-cron
   restart: always
   env_file:
-  - envs/cron-staging.env
+  - envs/cron-sandbox.env
 
 redis:
   image: redis:3
