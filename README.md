@@ -21,7 +21,7 @@ on the sample files provided in the envs directory filling the placeholders with
 required info.
 
 
-    $ docker-compose -f docker-compose-staging.yml up -d
+    $ docker-compose -f docker-compose-staging.yml up -d --no-recreate
     $ docker-compose -f docker-compose-staging.yml logs
 
 
