@@ -1,0 +1,20 @@
+[submodule "eea.docker.reportek.cron"]
+	path = eea.docker.reportek.cron
+	url = https://github.com/eea/eea.docker.reportek.cron.git
+	branch = master
+[submodule "eea.docker.reportek.apache"]
+	path = eea.docker.reportek.apache
+	url = https://github.com/eea/eea.docker.reportek.apache.git
+	branch = master
+[submodule "eea.docker.reportek.pound"]
+	path = eea.docker.reportek.pound
+	url = https://github.com/eea/eea.docker.reportek.pound.git
+	branch = master
+[submodule "eea.docker.reportek.cdr-instance"]
+	path = eea.docker.reportek.cdr-instance
+	url = https://github.com/eea/eea.docker.reportek.cdr-instance.git
+	branch = master
+[submodule "eea.docker.reportek.local-converters"]
+	path = eea.docker.reportek.local-converters
+	url = https://github.com/eea/eea.docker.reportek.local-converters.git
+	branch = master
