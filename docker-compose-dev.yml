@@ -32,7 +32,7 @@ instance2:
   - SOURCE_Products_Reportek=git https://github.com/eea/Products.Reportek branch=development
 
 pound:
-  image: eeacms/reportek-pound
+  image: eeacms/reportek-pound:development
   restart: always
   links:
   - instance1
