@@ -10,7 +10,7 @@ apache:
   - envs/apache-dev.env
 
 instance1:
-  image: eeacms/reportek-cdr
+  image: eeacms/reportek-cdr:development
   restart: always
   links:
   - zeoserver
@@ -21,7 +21,7 @@ instance1:
   - SOURCE_Products_Reportek=git https://github.com/eea/Products.Reportek branch=development
 
 instance2:
-  image: eeacms/reportek-cdr
+  image: eeacms/reportek-cdr:development
   restart: always
   links:
   - zeoserver
