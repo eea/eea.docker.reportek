@@ -58,7 +58,7 @@ localconv:
   restart: always
 
 cron:
-  image: eeacms/reportek-cron
+  image: eeacms/reportek-cron:development
   restart: always
   env_file:
   - envs/cron-dev.env
