@@ -1,5 +1,5 @@
 apache:
-  image: eeacms/reportek-apache
+  image: eeacms/reportek-apache:development
   restart: always
   ports:
   - "80:80"
