@@ -40,13 +40,6 @@ zeoserver:
   volumes_from:
   - data
 
-data:
-  image: busybox
-  volumes:
-  - /opt/zeoserver/var/filestorage
-  - /opt/zeoserver/var/blobstorage
-  command: chown -R 500:500 /opt/zeoserver/var
-
 localconv:
   image: eeacms/reportek-local-converters
   restart: always
@@ -60,3 +53,18 @@ cron:
 redis:
   image: redis:3
   restart: always
+  volumes_from:
+  - redisdata
+
+data:
+  image: busybox
+  volumes:
+  - /opt/zeoserver/var/filestorage
+  - /opt/zeoserver/var/blobstorage
+  command: chown -R 500:500 /opt/zeoserver/var
+
+redisdata:
+  image: busybox
+  volumes:
+  - /data
+  command: chown -R 999:999 /data
