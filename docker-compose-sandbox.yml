@@ -2,8 +2,8 @@ apache:
   image: eeacms/reportek-apache
   restart: always
   ports:
-  - "8114:80"
-  - "8115:443"
+  - "80:80"
+  - "443:443"
   links:
   - pound:pound
   env_file:
