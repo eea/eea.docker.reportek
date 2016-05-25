@@ -15,7 +15,7 @@ instance1:
   links:
   - zeoserver
   - localconv:converter
-  - redis:redis_deploy
+  - redis:redisdeploy
 
 instance2:
   image: eeacms/reportek-cdr
@@ -23,7 +23,7 @@ instance2:
   links:
   - zeoserver
   - localconv:converter
-  - redis:redis_deploy
+  - redis:redisdeploy
 
 pound:
   image: eeacms/reportek-pound
