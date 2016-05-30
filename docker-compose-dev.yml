@@ -5,7 +5,7 @@ apache:
   - "80:80"
   - "443:443"
   links:
-  - pound:pound
+  - haproxy:haproxy
   env_file:
   - envs/apache-dev.env
 
@@ -31,14 +31,15 @@ instance2:
   - ALWAYS_CHECKOUT=true
   - SOURCE_Products_Reportek=git https://github.com/eea/Products.Reportek branch=development
 
-pound:
-  image: eeacms/reportek-pound:development
+haproxy:
+  image: eeacms/haproxy
   restart: always
   links:
   - instance1
   - instance2
-  env_file:
-  - envs/pound.env
+  environment:
+    COOKIES_ENABLED: true
+    BACKENDS_PORT: 8080
 
 zeoserver:
   image: eeacms/zeoserver
