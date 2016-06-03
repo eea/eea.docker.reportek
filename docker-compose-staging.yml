@@ -5,7 +5,7 @@ apache:
   - "8112:80"
   - "8113:443"
   links:
-  - pound:pound
+  - haproxy:haproxy
   env_file:
   - envs/apache-staging.env
 
@@ -25,14 +25,15 @@ instance2:
   - localconv:converter
   - redis:redisdeploy
 
-pound:
-  image: eeacms/reportek-pound
+haproxy:
+  image: eeacms/haproxy
   restart: always
   links:
   - instance1
   - instance2
-  env_file:
-  - envs/pound.env
+  environment:
+    COOKIES_ENABLED: true
+    BACKENDS_PORT: 8080
 
 zeoserver:
   image: eeacms/zeoserver
