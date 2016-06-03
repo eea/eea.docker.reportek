@@ -16,9 +16,8 @@ Docker orchestration for Data Repositories portals
     $ cd eea.docker.reportek
 
 
-We need to create the apache-staging.env, cron-staging.env and pound.env files based
-on the sample files provided in the envs directory filling the placeholders with the
-required info.
+We need to create the apache-staging.env and cron-staging.env files based
+on the sample files provided in the envs directory filling the placeholders with the required info.
 
 
     $ docker-compose -f docker-compose-staging.yml up -d --no-recreate
@@ -29,7 +28,7 @@ required info.
 
     $ docker-compose -f docker-compose-staging.yml stop
     $ docker-compose -f docker-compose-staging.yml pull
-    $ docker-compose -f docker-compose-staging.yml rm -v apache instance1 instance2 pound zeoserver localconv cron redis
+    $ docker-compose -f docker-compose-staging.yml rm -v apache instance1 instance2 zeoserver localconv cron redis haproxy
     $ docker-compose -f docker-compose-staging.yml up -d --no-recreate
     $ docker-compose -f docker-compose-staging.yml logs
 
