@@ -1,0 +1,88 @@
+apache:
+  image: eeacms/reportek-apache
+  ports:
+  - "8116:80"
+  - "8117:443"
+  links:
+  - haproxy:haproxy
+  environment:
+    APACHE_SERVER_ADMIN: helpdesk@eionet.europa.eu
+    APACHE_SERVER_NAME: mdr-test.eionet.europa.eu
+    APACHE_HTTP_PROXY_TIMEOUT: 1200
+    APACHE_HTTPS_PROXY_TIMEOUT: 120
+    APACHE_DATA_HOSTNAME: mdr-test
+    BALANCER_NAME: haproxy
+    BALANCER_PORT: 5000
+    HTTP_TEMPLATE: |
+      <VirtualHost *:80>
+          ServerAdmin {{ APACHE_SERVER_ADMIN }}
+          ServerName {{ APACHE_SERVER_NAME }}
+          ProxyTimeout {{ APACHE_HTTP_PROXY_TIMEOUT }}
+          RewriteEngine on
+          RewriteRule /Flux/(.*) http://webq.eionet.europa.eu/Flux/$$1 [P,L,QSA]
+          RewriteRule /webq/(.*) {{ APACHE_WEBQ_HTTP }} [P,L,QSA]
+
+          ProxyPass /ping.apache !
+          ProxyPass / http://{{ BALANCER_NAME | default('localhost') }}:{{ BALANCER_PORT | default(80) }}/VirtualHostBase/http/{{ APACHE_DATA_HOSTNAME }}.eionet.europa.eu:80/VirtualHostRoot/ retry=2
+          # Settings for mod_deflate
+          SetOutputFilter DEFLATE
+          SetEnvIfNoCase Request_URI \
+           (/|_|\.)(?:gif|jpe?g|png|ico|zip|tgz|gz|bz2|rar|pdf|odt|odp|ppt|docx|xlsx)$$ no-gzip dont-vary
+          Header append Vary User-Agent env=!dont-vary
+      </VirtualHost>
+    APACHE_WEBQ_HTTP: http://webq.eionet.europa.eu/$$1?base_uri=http://mdr-test.eionet.europa.eu/webq/
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
+
+instance:
+  image: eeacms/reportek-mdr
+  restart: always
+  links:
+  - zeoserver
+  - localconv:converter
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
+
+haproxy:
+  image: eeacms/haproxy
+  restart: always
+  ports:
+  - "5000:5000"
+  links:
+  - instance
+  environment:
+    COOKIES_ENABLED: "true"
+    BACKENDS_PORT: 8080
+    BACKENDS: "instance:8080"
+    DNS_ENABLED: "true"
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
+
+cron:
+  image: eeacms/reportek-cron
+  restart: always
+  env_file:
+  - envs/cron-mdr-staging.env
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
+
+zeoserver:
+  image: eeacms/zeoserver
+  restart: always
+  volumes_from:
+  - data
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
+
+localconv:
+  image: eeacms/reportek-local-converters
+  restart: always
+  volumes:
+  - /etc/localtime:/etc/localtime:ro
+
+data:
+  image: busybox
+  volumes:
+  - /opt/zeoserver/var/filestorage
+  - /opt/zeoserver/var/blobstorage
+  command: chown -R 500:500 /opt/zeoserver/var
