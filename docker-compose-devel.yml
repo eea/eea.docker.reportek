@@ -1,0 +1,39 @@
+instance:
+  ports: ["8080:8080",]
+  image: eeacms/reportek-cdr
+  restart: always
+  links:
+  - zeoserver
+  - localconv:converter
+  - redis:redisdeploy
+  volumes:
+  - ${SOURCE-FOLDER}:/opt/zope/src
+
+zeoserver:
+  image: eeacms/zeoserver
+  restart: always
+  volumes_from:
+  - data
+
+localconv:
+  image: eeacms/reportek-local-converters
+  restart: always
+
+redis:
+  image: redis:3
+  restart: always
+  volumes_from:
+  - redisdata
+
+data:
+  image: busybox
+  volumes:
+  - /opt/zeoserver/var/filestorage
+  - /opt/zeoserver/var/blobstorage
+  command: chown -R 500:500 /opt/zeoserver/var
+
+redisdata:
+  image: busybox
+  volumes:
+  - /data
+  command: chown -R 999:999 /data
