@@ -12,30 +12,21 @@ Docker orchestration for Data Repositories portals
 
 ### Usage for CDR devel
 
-1. Clone the repository::
-
+Clone the repository
 
     $ git clone https://github.com/eea/eea.docker.reportek.git
     $ cd eea.docker.reportek
 
-2. Customize deployment::
+Edit `docker-compose-devel.yml` and replace SOURCE-FOLDER variable with the path of your src folder from the host machine (e.g. /home/zope/src/).
 
-
-    Edit `docker-compose-devel.yml` and replace SOURCE-FOLDER variable with the path of your src folder from the host machine (e.g. /home/zope/src/).
-
-3. Start application stack::
-
+Start application stack
 
     $ docker-compose -f docker-compose-devel.yml up
     $ docker-compose -f docker-compose-devel.yml logs
 
-4. Copy database::
+Copy the `Data.fs` file. See `Persistent data as you wish` section.
 
-
-    Copy the `Data.fs` file. See `Persistent data as you wish` section.
-
-5. See it in action::
-
+See it in action
 
     http://localhost:8080
 
